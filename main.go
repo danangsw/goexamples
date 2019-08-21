@@ -10,6 +10,7 @@ import (
 const hello = "hello"
 const helloNameFlag = "name"
 const value = "values"
+const variable = "variables"
 const defaultMsg = "let's go! learn golang by examples."
 
 func main () {
@@ -17,6 +18,8 @@ func main () {
 	helloName := helloCmd.String(helloNameFlag, "", "hello -name=<Your name here>")
 
 	valueCmd := flag.NewFlagSet(value, flag.ExitOnError)
+
+	variableCmd := flag.NewFlagSet(variable, flag.ExitOnError)
 
 	if len(os.Args) < 2 {
 		fmt.Println(defaultMsg)
@@ -30,6 +33,9 @@ func main () {
 		case value:
 			valueCmd.Parse(os.Args[2:])
 			samples.Values()
+		case variable:
+			variableCmd.Parse(os.Args[2:])
+			samples.Variables()
 		default:
 			fmt.Println(defaultMsg)
 			os.Exit(1)
