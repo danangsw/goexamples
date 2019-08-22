@@ -24,7 +24,7 @@ func TestFibonacci(t *testing.T)  {
 	for _, c := range cases {
 		got := samples.Fibonacci(c.in)
 		if got != c.want {
-			t.Errorf("n (%q) == %q, want %q", c.in, got, c.want)
+			t.Errorf("n (%v) == %v, want %v", c.in, got, c.want)
 		}
 	}
 }
