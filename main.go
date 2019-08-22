@@ -14,6 +14,8 @@ const variable = "variables"
 const exit = "exit"
 const reverse = "reverse"
 const reverseStringFlag = "string"
+const fibonacci = "fibonacci"
+const fibonacciNumberFlag = "number"
 const defaultMsg = "let's go! learn golang by examples."
 
 func main () {
@@ -28,6 +30,9 @@ func main () {
 
 	reverseCmd := flag.NewFlagSet(reverse, flag.ExitOnError)
 	reverseString := reverseCmd.String(reverseStringFlag, "", "reverse -string=<Your text here>")
+
+	fibonacciCmd := flag.NewFlagSet(fibonacci, flag.ExitOnError)
+	fibonacciNumber := fibonacciCmd.Int(fibonacciNumberFlag, 0, "fibonacci -number=<Your number here>")
 
 	if len(os.Args) < 2 {
 		fmt.Println(defaultMsg)
@@ -47,6 +52,10 @@ func main () {
 		case reverse:
 			reverseCmd.Parse(os.Args[2:])
 			result := samples.Reverse(*reverseString)
+			fmt.Println(result)
+		case fibonacci:
+			fibonacciCmd.Parse(os.Args[2:])
+			result := samples.Fibonacci(*fibonacciNumber)
 			fmt.Println(result)
 		case exit:
 			exitCmd.Parse(os.Args[2:])
