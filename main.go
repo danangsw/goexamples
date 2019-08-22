@@ -12,6 +12,8 @@ const helloNameFlag = "name"
 const value = "values"
 const variable = "variables"
 const exit = "exit"
+const reverse = "reverse"
+const reverseStringFlag = "string"
 const defaultMsg = "let's go! learn golang by examples."
 
 func main () {
@@ -23,6 +25,9 @@ func main () {
 	variableCmd := flag.NewFlagSet(variable, flag.ExitOnError)
 
 	exitCmd := flag.NewFlagSet(exit, flag.ExitOnError)
+
+	reverseCmd := flag.NewFlagSet(reverse, flag.ExitOnError)
+	reverseString := reverseCmd.String(reverseStringFlag, "", "reverse -string=<Your text here>")
 
 	if len(os.Args) < 2 {
 		fmt.Println(defaultMsg)
@@ -39,6 +44,10 @@ func main () {
 		case variable:
 			variableCmd.Parse(os.Args[2:])
 			samples.Variables()
+		case reverse:
+			reverseCmd.Parse(os.Args[2:])
+			result := samples.Reverse(*reverseString)
+			fmt.Println(result)
 		case exit:
 			exitCmd.Parse(os.Args[2:])
 			samples.Exit()
