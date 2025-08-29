@@ -4,9 +4,12 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	samples "github.com/danangsw/goexamples/samples"
+
+	samples "./samples"
 )
 
+const branching = "branching"
+const branchingValueFlag = "value"
 const hello = "hello"
 const helloNameFlag = "name"
 const value = "values"
@@ -21,9 +24,12 @@ const nthprimeNumberFlag = "number"
 const nthprimeisPrintedFlag = "isprinted"
 const defaultMsg = "let's go! learn golang by examples."
 
-func main () {
+func main() {
 	helloCmd := flag.NewFlagSet(hello, flag.ExitOnError)
 	helloName := helloCmd.String(helloNameFlag, "", "hello -name=<Your name here>")
+
+	branchingCmd := flag.NewFlagSet(branching, flag.ExitOnError)
+	branchingValue := branchingCmd.String(branchingValueFlag, "", "branching -value=<Your value here>")
 
 	valueCmd := flag.NewFlagSet(value, flag.ExitOnError)
 
@@ -43,36 +49,39 @@ func main () {
 
 	if len(os.Args) < 2 {
 		fmt.Println(defaultMsg)
-		os.Exit(1)	
+		os.Exit(1)
 	}
 
 	switch os.Args[1] {
-		case hello:
-			helloCmd.Parse(os.Args[2:])
-			samples.Hello(*helloName)
-		case value:
-			valueCmd.Parse(os.Args[2:])
-			samples.Values()
-		case variable:
-			variableCmd.Parse(os.Args[2:])
-			samples.Variables()
-		case reverse:
-			reverseCmd.Parse(os.Args[2:])
-			result := samples.Reverse(*reverseString)
-			fmt.Println(result)
-		case fibonacci:
-			fibonacciCmd.Parse(os.Args[2:])
-			result := samples.Fibonacci(*fibonacciNumber)
-			fmt.Println(result)
-		case nthprime:
-			nthprimeCmd.Parse(os.Args[2:])
-			result := samples.NthPrime(*nthPrimeNumber, *nthPrimeIsPrinted)
-			fmt.Println(result)
-		case exit:
-			exitCmd.Parse(os.Args[2:])
-			samples.Exit()
-		default:
-			fmt.Println(defaultMsg)
-			os.Exit(2)
+	case branching:
+		branchingCmd.Parse(os.Args[2:])
+		samples.Branching(*branchingValue)
+	case hello:
+		helloCmd.Parse(os.Args[2:])
+		samples.Hello(*helloName)
+	case value:
+		valueCmd.Parse(os.Args[2:])
+		samples.Values()
+	case variable:
+		variableCmd.Parse(os.Args[2:])
+		samples.Variables()
+	case reverse:
+		reverseCmd.Parse(os.Args[2:])
+		result := samples.Reverse(*reverseString)
+		fmt.Println(result)
+	case fibonacci:
+		fibonacciCmd.Parse(os.Args[2:])
+		result := samples.Fibonacci(*fibonacciNumber)
+		fmt.Println(result)
+	case nthprime:
+		nthprimeCmd.Parse(os.Args[2:])
+		result := samples.NthPrime(*nthPrimeNumber, *nthPrimeIsPrinted)
+		fmt.Println(result)
+	case exit:
+		exitCmd.Parse(os.Args[2:])
+		samples.Exit()
+	default:
+		fmt.Println(defaultMsg)
+		os.Exit(2)
 	}
 }
