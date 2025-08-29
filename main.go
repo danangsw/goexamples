@@ -8,6 +8,9 @@ import (
 	samples "./samples"
 )
 
+const switches = "switch"
+const switchTimeFlag = "time"
+const switchTypeFlag = "type"
 const branching = "branching"
 const branchingValueFlag = "value"
 const hello = "hello"
@@ -25,6 +28,10 @@ const nthprimeisPrintedFlag = "isprinted"
 const defaultMsg = "let's go! learn golang by examples."
 
 func main() {
+	switchCmd := flag.NewFlagSet(switches, flag.ExitOnError)
+	switchDay := switchCmd.String(switchTimeFlag, "", "switch -time=<day | weekday | time>")
+	switchType := switchCmd.String(switchTypeFlag, "", "switch -type=<Your type here>")
+
 	helloCmd := flag.NewFlagSet(hello, flag.ExitOnError)
 	helloName := helloCmd.String(helloNameFlag, "", "hello -name=<Your name here>")
 
@@ -53,6 +60,9 @@ func main() {
 	}
 
 	switch os.Args[1] {
+	case switches:
+		switchCmd.Parse(os.Args[2:])
+		samples.Switches(*switchDay, *switchType)
 	case branching:
 		branchingCmd.Parse(os.Args[2:])
 		samples.Branching(*branchingValue)
