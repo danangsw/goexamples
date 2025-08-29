@@ -8,6 +8,7 @@ import (
 	samples "./samples"
 )
 
+const array = "array"
 const switches = "switch"
 const switchTimeFlag = "time"
 const switchTypeFlag = "type"
@@ -28,6 +29,8 @@ const nthprimeisPrintedFlag = "isprinted"
 const defaultMsg = "let's go! learn golang by examples."
 
 func main() {
+	arrayCmd := flag.NewFlagSet(array, flag.ExitOnError)
+
 	switchCmd := flag.NewFlagSet(switches, flag.ExitOnError)
 	switchDay := switchCmd.String(switchTimeFlag, "", "switch -time=<day | weekday | time>")
 	switchType := switchCmd.String(switchTypeFlag, "", "switch -type=<Your type here>")
@@ -60,6 +63,9 @@ func main() {
 	}
 
 	switch os.Args[1] {
+	case array:
+		arrayCmd.Parse(os.Args[2:])
+		samples.Array()
 	case switches:
 		switchCmd.Parse(os.Args[2:])
 		samples.Switches(*switchDay, *switchType)
