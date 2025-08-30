@@ -2,7 +2,7 @@ package testing_test
 
 import (
 	"testing"
-	samples "github.com/danangsw/goexamples/samples"
+	samples "../samples"
 )
 
 func TestReverse(t *testing.T)  {
