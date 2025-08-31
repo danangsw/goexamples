@@ -1,6 +1,7 @@
 package testing_test
 
 import (
+	"fmt"
 	"testing"
 
 	problem "../problem"
@@ -20,9 +21,11 @@ func TestPalindromeNumber(t *testing.T) {
 	}
 
 	for _, c := range cases {
-		got := problem.IsPalindrome(c.in)
-		if got != c.want {
-			t.Errorf("IsPalindrome(%d) = %v; want %v", c.in, got, c.want)
-		}
+		t.Run(fmt.Sprintf("IsPalindrome(%d)", c.in), func(t *testing.T) {
+			result := problem.IsPalindrome(c.in)
+			if result != c.want {
+				t.Errorf("expected %v, got %v", c.want, result)
+			}
+		})
 	}
 }
