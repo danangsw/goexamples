@@ -30,6 +30,8 @@ const nthprimeisPrintedFlag = "isprinted"
 const defaultMsg = "let's go! learn golang by examples."
 
 func main() {
+	sliceCmd := flag.NewFlagSet(slice, flag.ExitOnError)
+
 	arrayCmd := flag.NewFlagSet(array, flag.ExitOnError)
 
 	switchCmd := flag.NewFlagSet(switches, flag.ExitOnError)
@@ -64,6 +66,9 @@ func main() {
 	}
 
 	switch os.Args[1] {
+	case slice:
+		sliceCmd.Parse(os.Args[2:])
+		samples.SliceExample()
 	case array:
 		arrayCmd.Parse(os.Args[2:])
 		samples.Array()
