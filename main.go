@@ -8,6 +8,7 @@ import (
 	samples "./samples"
 )
 
+const slice = "slice"
 const array = "array"
 const switches = "switch"
 const switchTimeFlag = "time"
