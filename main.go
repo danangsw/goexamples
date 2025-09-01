@@ -8,55 +8,58 @@ import (
 	samples "./samples"
 )
 
-const slice = "slice"
-const array = "array"
-const switches = "switch"
+const mapFlag = "map"
+const sliceFlag = "slice"
+const arrayFlag = "array"
+const switchesFlag = "switch"
 const switchTimeFlag = "time"
 const switchTypeFlag = "type"
-const branching = "branching"
+const branchingFlag = "branching"
 const branchingValueFlag = "value"
-const hello = "hello"
+const helloFlag = "hello"
 const helloNameFlag = "name"
-const value = "values"
-const variable = "variables"
-const exit = "exit"
-const reverse = "reverse"
+const valueFlag = "values"
+const variableFlag = "variables"
+const exitFlag = "exit"
+const reverseFlag = "reverse"
 const reverseStringFlag = "string"
-const fibonacci = "fibonacci"
+const fibonacciFlag = "fibonacci"
 const fibonacciNumberFlag = "number"
-const nthprime = "nthprime"
+const nthprimeFlag = "nthprime"
 const nthprimeNumberFlag = "number"
 const nthprimeisPrintedFlag = "isprinted"
 const defaultMsg = "let's go! learn golang by examples."
 
 func main() {
-	sliceCmd := flag.NewFlagSet(slice, flag.ExitOnError)
+	mapCmd := flag.NewFlagSet(mapFlag, flag.ExitOnError)
 
-	arrayCmd := flag.NewFlagSet(array, flag.ExitOnError)
+	sliceCmd := flag.NewFlagSet(sliceFlag, flag.ExitOnError)
 
-	switchCmd := flag.NewFlagSet(switches, flag.ExitOnError)
+	arrayCmd := flag.NewFlagSet(arrayFlag, flag.ExitOnError)
+
+	switchCmd := flag.NewFlagSet(switchesFlag, flag.ExitOnError)
 	switchDay := switchCmd.String(switchTimeFlag, "", "switch -time=<day | weekday | time>")
 	switchType := switchCmd.String(switchTypeFlag, "", "switch -type=<Your type here>")
 
-	helloCmd := flag.NewFlagSet(hello, flag.ExitOnError)
+	helloCmd := flag.NewFlagSet(helloFlag, flag.ExitOnError)
 	helloName := helloCmd.String(helloNameFlag, "", "hello -name=<Your name here>")
 
-	branchingCmd := flag.NewFlagSet(branching, flag.ExitOnError)
+	branchingCmd := flag.NewFlagSet(branchingFlag, flag.ExitOnError)
 	branchingValue := branchingCmd.String(branchingValueFlag, "", "branching -value=<Your value here>")
 
-	valueCmd := flag.NewFlagSet(value, flag.ExitOnError)
+	valueCmd := flag.NewFlagSet(valueFlag, flag.ExitOnError)
 
-	variableCmd := flag.NewFlagSet(variable, flag.ExitOnError)
+	variableCmd := flag.NewFlagSet(variableFlag, flag.ExitOnError)
 
-	exitCmd := flag.NewFlagSet(exit, flag.ExitOnError)
+	exitCmd := flag.NewFlagSet(exitFlag, flag.ExitOnError)
 
-	reverseCmd := flag.NewFlagSet(reverse, flag.ExitOnError)
+	reverseCmd := flag.NewFlagSet(reverseFlag, flag.ExitOnError)
 	reverseString := reverseCmd.String(reverseStringFlag, "", "reverse -string=<Your text here>")
 
-	fibonacciCmd := flag.NewFlagSet(fibonacci, flag.ExitOnError)
+	fibonacciCmd := flag.NewFlagSet(fibonacciFlag, flag.ExitOnError)
 	fibonacciNumber := fibonacciCmd.Int(fibonacciNumberFlag, 0, "fibonacci -number=<Your number here>")
 
-	nthprimeCmd := flag.NewFlagSet(nthprime, flag.ExitOnError)
+	nthprimeCmd := flag.NewFlagSet(nthprimeFlag, flag.ExitOnError)
 	nthPrimeNumber := nthprimeCmd.Int(nthprimeNumberFlag, 0, "nthprime -number=<Your number here>")
 	nthPrimeIsPrinted := nthprimeCmd.Bool(nthprimeisPrintedFlag, false, "nthprime -isprinted=<true | false>")
 
@@ -66,40 +69,43 @@ func main() {
 	}
 
 	switch os.Args[1] {
-	case slice:
+	case mapFlag:
+		mapCmd.Parse(os.Args[0:2])
+		samples.MapExample()
+	case sliceFlag:
 		sliceCmd.Parse(os.Args[2:])
 		samples.SliceExample()
-	case array:
+	case arrayFlag:
 		arrayCmd.Parse(os.Args[2:])
 		samples.Array()
-	case switches:
+	case switchesFlag:
 		switchCmd.Parse(os.Args[2:])
 		samples.Switches(*switchDay, *switchType)
-	case branching:
+	case branchingFlag:
 		branchingCmd.Parse(os.Args[2:])
 		samples.Branching(*branchingValue)
-	case hello:
+	case helloFlag:
 		helloCmd.Parse(os.Args[2:])
 		samples.Hello(*helloName)
-	case value:
+	case valueFlag:
 		valueCmd.Parse(os.Args[2:])
 		samples.Values()
-	case variable:
+	case variableFlag:
 		variableCmd.Parse(os.Args[2:])
 		samples.Variables()
-	case reverse:
+	case reverseFlag:
 		reverseCmd.Parse(os.Args[2:])
 		result := samples.Reverse(*reverseString)
 		fmt.Println(result)
-	case fibonacci:
+	case fibonacciFlag:
 		fibonacciCmd.Parse(os.Args[2:])
 		result := samples.Fibonacci(*fibonacciNumber)
 		fmt.Println(result)
-	case nthprime:
+	case nthprimeFlag:
 		nthprimeCmd.Parse(os.Args[2:])
 		result := samples.NthPrime(*nthPrimeNumber, *nthPrimeIsPrinted)
 		fmt.Println(result)
-	case exit:
+	case exitFlag:
 		exitCmd.Parse(os.Args[2:])
 		samples.Exit()
 	default:
