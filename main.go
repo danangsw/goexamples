@@ -8,6 +8,7 @@ import (
 	samples "./samples"
 )
 
+const funcFlag = "func"
 const mapFlag = "map"
 const sliceFlag = "slice"
 const arrayFlag = "array"
@@ -31,6 +32,11 @@ const nthprimeisPrintedFlag = "isprinted"
 const defaultMsg = "let's go! learn golang by examples."
 
 func main() {
+	funcCmd := flag.NewFlagSet(funcFlag, flag.ExitOnError)
+	funcContain := funcCmd.String("c", "", "func -c=<Your string contain here>")
+	funcPrefix := funcCmd.String("p", "", "func -p=<Your string prefix here>")
+	funcLength := funcCmd.Int("l", 0, "func -l=<Your string min-length here>")
+
 	mapCmd := flag.NewFlagSet(mapFlag, flag.ExitOnError)
 
 	sliceCmd := flag.NewFlagSet(sliceFlag, flag.ExitOnError)
@@ -69,8 +75,11 @@ func main() {
 	}
 
 	switch os.Args[1] {
+	case funcFlag:
+		funcCmd.Parse(os.Args[2:])
+		samples.FunctionExample(*funcContain, *funcPrefix, *funcLength)
 	case mapFlag:
-		mapCmd.Parse(os.Args[0:2])
+		mapCmd.Parse(os.Args[2:])
 		samples.MapExample()
 	case sliceFlag:
 		sliceCmd.Parse(os.Args[2:])
