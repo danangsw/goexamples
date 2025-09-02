@@ -8,6 +8,7 @@ import (
 	samples "./samples"
 )
 
+const pointerFlag = "pointer"
 const funcFlag = "func"
 const mapFlag = "map"
 const sliceFlag = "slice"
@@ -32,6 +33,8 @@ const nthprimeisPrintedFlag = "isprinted"
 const defaultMsg = "let's go! learn golang by examples."
 
 func main() {
+	pointerCmd := flag.NewFlagSet(pointerFlag, flag.ExitOnError)
+
 	funcCmd := flag.NewFlagSet(funcFlag, flag.ExitOnError)
 	funcContain := funcCmd.String("c", "", "func -c=<Your string contain here>")
 	funcPrefix := funcCmd.String("p", "", "func -p=<Your string prefix here>")
@@ -75,6 +78,9 @@ func main() {
 	}
 
 	switch os.Args[1] {
+	case pointerFlag:
+		pointerCmd.Parse(os.Args[2:])
+		samples.PointerExample()
 	case funcFlag:
 		funcCmd.Parse(os.Args[2:])
 		samples.FunctionExample(*funcContain, *funcPrefix, *funcLength)
