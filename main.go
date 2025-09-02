@@ -8,6 +8,7 @@ import (
 	samples "./samples"
 )
 
+const structFlag = "struct"
 const pointerFlag = "pointer"
 const funcFlag = "func"
 const mapFlag = "map"
@@ -33,6 +34,8 @@ const nthprimeisPrintedFlag = "isprinted"
 const defaultMsg = "let's go! learn golang by examples."
 
 func main() {
+	structCmd := flag.NewFlagSet(structFlag, flag.ExitOnError)
+
 	pointerCmd := flag.NewFlagSet(pointerFlag, flag.ExitOnError)
 
 	funcCmd := flag.NewFlagSet(funcFlag, flag.ExitOnError)
@@ -78,6 +81,9 @@ func main() {
 	}
 
 	switch os.Args[1] {
+	case structFlag:
+		structCmd.Parse(os.Args[2:])
+		samples.StructExample()
 	case pointerFlag:
 		pointerCmd.Parse(os.Args[2:])
 		samples.PointerExample()
