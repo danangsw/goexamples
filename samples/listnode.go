@@ -9,14 +9,14 @@ type ListNode struct {
 
 func ListNodeExample() {
 	basicListSample()
-	node1 := createList([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 0})
+	node1 := createList([]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10})
 	printList(node1)
 	fmt.Println("Create List")
 	node2 := createList([]int{})
 	printList(node2)
 	fmt.Println("Insert List, before:")
 	printList(node1)
-	appendLists([]int{9, 8, 7, 6}, node1)
+	appendLists([]int{11, 12, 13, 14, 15}, node1)
 	fmt.Println("Insert List, after:")
 	printList(node1)
 }
@@ -26,19 +26,18 @@ func appendLists(values []int, nodes *ListNode) {
 		return
 	}
 
+	// Find the latest node
 	last := nodes
-
 	for last.Next != nil {
 		last = last.Next
 	}
-	printList(last)
 
-	for i := 0; i < len(values); i++ {
-		last.Next = &ListNode{Value: values[i]}
-		last = last.Next
-	}
+	// Append the values to List Node
+	last.Next = createList(values)
 
-	nodes = last
+	//fmt.Println(nodes, last)
+	//printList(nodes)
+	//printList(last)
 }
 
 func createList(values []int) *ListNode {
