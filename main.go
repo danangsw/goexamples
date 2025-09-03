@@ -8,6 +8,7 @@ import (
 	samples "./samples"
 )
 
+const listNodeFlag = "listnode"
 const structFlag = "struct"
 const pointerFlag = "pointer"
 const funcFlag = "func"
@@ -34,6 +35,8 @@ const nthprimeisPrintedFlag = "isprinted"
 const defaultMsg = "let's go! learn golang by examples."
 
 func main() {
+	listNodeCmd := flag.NewFlagSet(listNodeFlag, flag.ExitOnError)
+
 	structCmd := flag.NewFlagSet(structFlag, flag.ExitOnError)
 
 	pointerCmd := flag.NewFlagSet(pointerFlag, flag.ExitOnError)
@@ -81,6 +84,9 @@ func main() {
 	}
 
 	switch os.Args[1] {
+	case listNodeFlag:
+		listNodeCmd.Parse(os.Args[2:])
+		samples.ListNodeExample()
 	case structFlag:
 		structCmd.Parse(os.Args[2:])
 		samples.StructExample()
