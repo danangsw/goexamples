@@ -16,14 +16,15 @@ func ListNodeExample() {
 	printList(node2)
 	fmt.Println("Insert List, before:")
 	printList(node1)
-	appendLists([]int{11, 12, 13, 14, 15}, node1)
+	node3 := appendLists(node1, []int{11, 12, 13, 14, 15})
 	fmt.Println("Insert List, after:")
 	printList(node1)
+	printList(node3)
 }
 
-func appendLists(values []int, nodes *ListNode) {
+func appendLists(nodes *ListNode, values []int) *ListNode {
 	if len(values) == 0 || nodes == nil {
-		return
+		return nil
 	}
 
 	// Find the latest node
@@ -38,6 +39,8 @@ func appendLists(values []int, nodes *ListNode) {
 	//fmt.Println(nodes, last)
 	//printList(nodes)
 	//printList(last)
+
+	return nodes
 }
 
 func createList(values []int) *ListNode {
