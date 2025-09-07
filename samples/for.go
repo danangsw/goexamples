@@ -40,4 +40,11 @@ func ForSamples() {
 		sum += sum
 	}
 	fmt.Println("Sum:", sum)
+
+	fmt.Println("For is GO's 'while':")
+	sum = 1
+	for sum < 1000 {
+		sum += sum
+	}
+	fmt.Println("Sum:", sum)
 }
