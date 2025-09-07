@@ -1,6 +1,9 @@
 package samples
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 func ForSamples() {
 	fmt.Println("For Loop 1:")
@@ -47,4 +50,25 @@ func ForSamples() {
 		sum += sum
 	}
 	fmt.Println("Sum:", sum)
+
+	fmt.Println("Exercise: Newton's method")
+	x := float64(1.2)
+	fmt.Printf("Sqrt(%f): %f\n", x, sqrt(x))
+	fmt.Printf("Math.Sqrt(%f): %f\n", x, math.Sqrt(x))
+}
+
+func sqrt(x float64) float64 {
+	y := float64(1)
+	z := float64(1)
+	lv := 0.00000001
+	it := 20
+	for i := 0; i < it; i++ {
+		y = z
+		z -= (z*z - x) / (2 * z)
+		if y == z || z < lv {
+			break
+		}
+	}
+
+	return z
 }
