@@ -8,6 +8,7 @@ import (
 	samples "./samples"
 )
 
+const forFlag = "for"
 const constantFlag = "constant"
 const basicTypesFlag = "types"
 const listNodeFlag = "listnode"
@@ -37,6 +38,8 @@ const nthprimeisPrintedFlag = "isprinted"
 const defaultMsg = "let's go! learn golang by examples."
 
 func main() {
+	forCmd := flag.NewFlagSet(forFlag, flag.ExitOnError)
+
 	constantCmd := flag.NewFlagSet(constantFlag, flag.ExitOnError)
 
 	basicTypesCmd := flag.NewFlagSet(basicTypesFlag, flag.ExitOnError)
@@ -90,6 +93,9 @@ func main() {
 	}
 
 	switch os.Args[1] {
+	case forFlag:
+		forCmd.Parse(os.Args[2:])
+		samples.ForSamples()
 	case constantFlag:
 		constantCmd.Parse(os.Args[2:])
 		samples.ConstantSamples()
