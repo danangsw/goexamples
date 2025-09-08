@@ -8,6 +8,7 @@ import (
 	samples "./samples"
 )
 
+const deferFlag = "defer"
 const forFlag = "for"
 const constantFlag = "constant"
 const basicTypesFlag = "types"
@@ -38,6 +39,8 @@ const nthprimeisPrintedFlag = "isprinted"
 const defaultMsg = "let's go! learn golang by examples."
 
 func main() {
+	deferCmd := flag.NewFlagSet(deferFlag, flag.ExitOnError)
+
 	forCmd := flag.NewFlagSet(forFlag, flag.ExitOnError)
 
 	constantCmd := flag.NewFlagSet(constantFlag, flag.ExitOnError)
@@ -93,6 +96,9 @@ func main() {
 	}
 
 	switch os.Args[1] {
+	case deferFlag:
+		deferCmd.Parse(os.Args[2:])
+		samples.DeferSamples()
 	case forFlag:
 		forCmd.Parse(os.Args[2:])
 		samples.ForSamples()
