@@ -40,6 +40,7 @@ const defaultMsg = "let's go! learn golang by examples."
 
 func main() {
 	deferCmd := flag.NewFlagSet(deferFlag, flag.ExitOnError)
+	deferTypes := deferCmd.Int("t", 0, "defer -t=<1 | 2>")
 
 	forCmd := flag.NewFlagSet(forFlag, flag.ExitOnError)
 
@@ -98,7 +99,7 @@ func main() {
 	switch os.Args[1] {
 	case deferFlag:
 		deferCmd.Parse(os.Args[2:])
-		samples.DeferSamples()
+		samples.DeferSamples(*deferTypes)
 	case forFlag:
 		forCmd.Parse(os.Args[2:])
 		samples.ForSamples()

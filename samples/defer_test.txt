@@ -1,0 +1,1 @@
+File Processing: The processFile function demonstrates how defer can be used to ensure that a file is always closed, even if an error occurs. This prevents resource leaks.
