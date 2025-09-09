@@ -3,6 +3,7 @@ package samples
 import (
 	"fmt"
 	"os"
+	"sync"
 )
 
 const (
@@ -36,14 +37,21 @@ func deferSamplesBasic() {
 // Deferred function samples advanced
 func deferSamplesAdvanced() {
 	// 1. File processing example
-	err := processFile("./samples/defer_test.txt")
+	err := ProcessFile("./samples/defer_test.txt")
 	if err != nil {
 		fmt.Println("Error processing file:", err)
 	}
+
+	// 2. Mutex unlocking example
+	counter := SafeCounter{}
+	for i := 0; i < 10; i++ {
+		counter.Increment()	
+	}
+	fmt.Println("Counter:", counter.GetCount())
 }
 
 // 1. File processing
-func processFile(filename string) error {
+func ProcessFile(filename string) error {
 	file, err := os.Open(filename)
 	if err != nil {
 		return err
@@ -62,5 +70,21 @@ func processFile(filename string) error {
 }
 
 // 2. Mutex unlocking example
+type SafeCounter struct {
+	count int
+	mu    sync.Mutex // Removed sync.Mutex to avoid import and concurrent
+}
+
+func (c *SafeCounter) GetCount() int {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	return c.count
+}
+
+func (c *SafeCounter) Increment() {
+	c.mu.Lock()         // Lock the mutex before incrementing
+	defer c.mu.Unlock() // Endure mutex is unlocked when function returns
+	c.count++
+}
 
 // 3. Recovering from panics
