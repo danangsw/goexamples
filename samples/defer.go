@@ -37,17 +37,23 @@ func deferSamplesBasic() {
 // Deferred function samples advanced
 func deferSamplesAdvanced() {
 	// 1. File processing example
+	fmt.Println("1. File processing")
 	err := ProcessFile("./samples/defer_test.txt")
 	if err != nil {
 		fmt.Println("Error processing file:", err)
 	}
 
 	// 2. Mutex unlocking example
+	fmt.Println("2. Mutex unlocking example")
 	counter := SafeCounter{}
 	for i := 0; i < 10; i++ {
-		counter.Increment()	
+		counter.Increment()
 	}
 	fmt.Println("Counter:", counter.GetCount())
+
+	// 3. Recovering from panic
+	fmt.Println("3. Recovering from panic")
+	recoverFromPanic()
 }
 
 // 1. File processing
@@ -88,3 +94,13 @@ func (c *SafeCounter) Increment() {
 }
 
 // 3. Recovering from panics
+func recoverFromPanic() {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("Recovered from panic:", r)
+		}
+	}()
+
+	// Simulate panic
+	panic("Something went wrong!")
+}
