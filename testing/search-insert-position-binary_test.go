@@ -5,7 +5,7 @@ import (
 	"../problem"
 )
 
-func TestSearchInsert(t *testing.T) {
+func TestSearchInsertBinary(t *testing.T) {
 	testCases := []struct {
 		nums   []int
 		target int
@@ -29,7 +29,7 @@ func TestSearchInsert(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		result := problem.SearchInsert(tc.nums, tc.target)
+		result := problem.SearchInsertBinary(tc.nums, tc.target)
 		if result != tc.expect {
 			t.Errorf("For nums=%v, target=%v, expected %v, but got %v", tc.nums, tc.target, tc.expect, result)
 		}
