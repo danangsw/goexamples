@@ -7,8 +7,20 @@ import (
 
 type FilterCallback func(string) bool
 
-func FunctionExample(contain string, prefix string, length int) {
+func FunctionExample(contain string, prefix string, length int, closure bool) {
 	fmt.Println("Function Examples")
+
+	// Function closure (fibonnaci = 10)
+	if closure {
+		f := fibonacci()
+		for i := 0; i < 10; i++ {
+			if i < 9 {
+				fmt.Printf("%d, ", f())
+			} else {
+				fmt.Printf("%d\n", f())
+			}
+		}
+	}
 
 	// Example usage of filter function
 	data := []string{
@@ -49,4 +61,15 @@ func filter(data []string, callback FilterCallback) (length int, result []string
 	}
 	length = len(result)
 	return
+}
+
+// fibonacci is a function that returns.
+// a function that returns an int.
+func fibonacci() func() int {
+	a, b := 0, 1
+	return func() int {
+		result := a
+		a, b = b, a+b
+		return result
+	}
 }

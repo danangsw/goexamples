@@ -55,9 +55,10 @@ func main() {
 	pointerCmd := flag.NewFlagSet(pointerFlag, flag.ExitOnError)
 
 	funcCmd := flag.NewFlagSet(funcFlag, flag.ExitOnError)
-	funcContain := funcCmd.String("c", "", "func -c=<Your string contain here>")
-	funcPrefix := funcCmd.String("p", "", "func -p=<Your string prefix here>")
-	funcLength := funcCmd.Int("l", 0, "func -l=<Your string min-length here>")
+	funcContain := funcCmd.String("contain", "", "func -contain=<Your string contain here>")
+	funcPrefix := funcCmd.String("prefix", "", "func -prefix=<Your string prefix here>")
+	funcLength := funcCmd.Int("min-len", 0, "func -min-len=<Your string min-length here>")
+	funcClosure := funcCmd.Bool("closure", false, "func -closure=< 1 | 0 >")
 
 	mapCmd := flag.NewFlagSet(mapFlag, flag.ExitOnError)
 
@@ -120,7 +121,7 @@ func main() {
 		samples.PointerExample()
 	case funcFlag:
 		funcCmd.Parse(os.Args[2:])
-		samples.FunctionExample(*funcContain, *funcPrefix, *funcLength)
+		samples.FunctionExample(*funcContain, *funcPrefix, *funcLength, *funcClosure)
 	case mapFlag:
 		mapCmd.Parse(os.Args[2:])
 		samples.MapExample()
