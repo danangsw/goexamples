@@ -2,12 +2,7 @@
 
 package problem
 
-type ListNode struct{
-	Val int
-	Next *ListNode
-}
-
-func MergeTwoList (l1 *ListNode, l2 *ListNode) *ListNode {
+func MergeTwoList(l1 *ListNode, l2 *ListNode) *ListNode {
 	if l1 == nil && l2 == nil {
 		return nil
 	}
