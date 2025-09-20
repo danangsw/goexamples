@@ -1,8 +1,11 @@
 // https://leetcode.com/problems/binary-tree-inorder-traversal/description/
 package problem
+
 import (
 	helper "../helper"
 )
+
+type TreeNode = helper.TreeNode
 
 /**
  * Definition for a binary tree node.
@@ -17,10 +20,10 @@ import (
 // Inorder: Left -> Node -> Right (LNR)
 // Best For: Copying, Serializing, and Deserializing a tree
 // Key Characteristics:Process parent before children
-func InorderIterativeTraversal(root *helper.TreeNode) []int {
-	result := []int{}      // Result slice to store inorder traversal
+func InorderIterativeTraversal(root *TreeNode) []int {
+	result := []int{}             // Result slice to store inorder traversal
 	stack := []*helper.TreeNode{} // Stack to simulate recursion using iteration
-	current := root        // Start with the root node
+	current := root               // Start with the root node
 
 	// Iterate until all nodes are processed
 	for current != nil || len(stack) > 0 {
@@ -46,8 +49,8 @@ func InorderIterativeTraversal(root *helper.TreeNode) []int {
 // Preorder: Node -> Left -> Right (NLR)
 // Best For: BST operations like insertion and deletion, sorted output
 // Key Charateristics: Gives sorted output for BSTs
-func PreorderIterativeTraversal(root *helper.TreeNode) []int {
-	result := []int{}      // Result slice to store preorder traversal
+func PreorderIterativeTraversal(root *TreeNode) []int {
+	result := []int{}             // Result slice to store preorder traversal
 	stack := []*helper.TreeNode{} // Stack to simulate recursion using iteration
 
 	if root == nil {
@@ -70,6 +73,47 @@ func PreorderIterativeTraversal(root *helper.TreeNode) []int {
 		// Push left second so that left is processed first
 		if current.Left != nil {
 			stack = append(stack, current.Left)
+		}
+	}
+
+	return result
+}
+
+// PostorderIterativeTraversal performs a postorder traversal of a binary tree iteratively (without recursion).
+// It returns a slice of integers representing the values of the nodes in postorder sequence.
+// Postorder: Left -> Right -> Node (LRN)
+// Best For: Deleting a tree, evaluating expression trees
+// Key Characteristics: Process children before parent
+
+// Advanced: Iterative with Single Stack (State Tracking Strategy)
+// This method uses a single stack and a pointer to track the last visited node.
+// It ensures that each node is processed after its children have been processed.
+func PostorderIterativeTraversal(root *TreeNode) []int {
+	result := []int{}
+	stack := []*TreeNode{}
+	var lastNode *TreeNode
+	current := root
+
+	if root == nil {
+		return result
+	}
+
+	for len(stack) > 0 || current != nil {
+		if current != nil {
+			stack = append(stack, current)
+			current = current.Left // Go left as far as possible
+		} else {
+			peekNode := stack[len(stack)-1] // Peek the top node
+
+			// If right child exists and hasn't been processed yet, move to right child
+			if peekNode.Right != nil && lastNode != peekNode.Right {
+				current = peekNode.Right // Move to right child
+			} else {
+				// Process the node
+				result = append(result, peekNode.Val)
+				lastNode = peekNode          // Mark this node as processed
+				stack = stack[:len(stack)-1] // Pop from stack
+			}
 		}
 	}
 
