@@ -2,21 +2,20 @@ package testing_test
 
 import (
 	"testing"
-
-	"../problem"
+	problem "../problem"
 )
 
 // Helper function to create a linked list from slice
-func createList(values []int) *problem.ListNode {
+func createList(values []int) *ListNode {
 	if len(values) == 0 {
 		return nil
 	}
 
-	head := &problem.ListNode{Val: values[0]}
+	head := &ListNode{Val: values[0]}
 	current := head
 
 	for i := 1; i < len(values); i++ {
-		current.Next = &problem.ListNode{Val: values[i]}
+		current.Next = &ListNode{Val: values[i]}
 		current = current.Next
 	}
 
@@ -24,7 +23,7 @@ func createList(values []int) *problem.ListNode {
 }
 
 // Helper function to convert linked list to slice for easy comparison
-func listToSlice(head *problem.ListNode) []int {
+func listToSlice(head *ListNode) []int {
 	var result []int
 	current := head
 
@@ -203,11 +202,11 @@ func BenchmarkDeleteDuplicates(b *testing.B) {
 /**
 func ExampleDeleteDuplicates() {
 	// Create a list: 1 -> 1 -> 2 -> 3 -> 3
-	head := &problem.ListNode{Val: 1}
-	head.Next = &problem.ListNode{Val: 1}
-	head.Next.Next = &problem.ListNode{Val: 2}
-	head.Next.Next.Next = &problem.ListNode{Val: 3}
-	head.Next.Next.Next.Next = &problem.ListNode{Val: 3}
+	head := &ListNode{Val: 1}
+	head.Next = &ListNode{Val: 1}
+	head.Next.Next = &ListNode{Val: 2}
+	head.Next.Next.Next = &ListNode{Val: 3}
+	head.Next.Next.Next.Next = &ListNode{Val: 3}
 
 	// Remove duplicates
 	result := problem.DeleteDuplicates(head)

@@ -4,6 +4,10 @@
 // Return the linked list sorted as well.
 package problem
 
+import (
+	helper "../helper"
+)
+
 /**
  * Definition for singly-linked list.
  * type ListNode struct {
@@ -11,7 +15,7 @@ package problem
  *     Next *ListNode
  * }
  */
-func DeleteDuplicates(head *ListNode) *ListNode {
+func DeleteDuplicates(head *helper.ListNode) *helper.ListNode {
 	if head == nil {
 		return nil
 	}

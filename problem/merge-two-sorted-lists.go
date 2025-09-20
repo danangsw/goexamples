@@ -2,7 +2,11 @@
 
 package problem
 
-func MergeTwoList(l1 *ListNode, l2 *ListNode) *ListNode {
+import (
+	helper "../helper"
+)
+
+func MergeTwoList(l1 *helper.ListNode, l2 *helper.ListNode) *helper.ListNode {
 	if l1 == nil && l2 == nil {
 		return nil
 	}
@@ -13,7 +17,7 @@ func MergeTwoList(l1 *ListNode, l2 *ListNode) *ListNode {
 		return l1
 	}
 
-	head := &ListNode{}
+	head := &helper.ListNode{}
 	node := head
 
 	for l1 != nil && l2 != nil {

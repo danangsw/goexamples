@@ -3,11 +3,8 @@ package testing_test
 import (
 	"reflect"
 	"testing"
-
 	problem "../problem"
 )
-
-type ListNode = problem.ListNode
 
 func TestMergeTwoList(t *testing.T) {
 	// Helper function to create a linked list from a slice of integers

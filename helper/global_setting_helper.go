@@ -1,4 +1,4 @@
-package problem
+package helper
 
 // Definition for singly-linked list.
 type ListNode struct {
