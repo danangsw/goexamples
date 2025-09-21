@@ -21,9 +21,9 @@ type TreeNode = helper.TreeNode
 // Best For: Copying, Serializing, and Deserializing a tree
 // Key Characteristics:Process parent before children
 func InorderIterativeTraversal(root *TreeNode) []int {
-	result := []int{}             // Result slice to store inorder traversal
-	stack := []*helper.TreeNode{} // Stack to simulate recursion using iteration
-	current := root               // Start with the root node
+	result := []int{}      // Result slice to store inorder traversal
+	stack := []*TreeNode{} // Stack to simulate recursion using iteration
+	current := root        // Start with the root node
 
 	// Iterate until all nodes are processed
 	for current != nil || len(stack) > 0 {
@@ -50,8 +50,8 @@ func InorderIterativeTraversal(root *TreeNode) []int {
 // Best For: BST operations like insertion and deletion, sorted output
 // Key Charateristics: Gives sorted output for BSTs
 func PreorderIterativeTraversal(root *TreeNode) []int {
-	result := []int{}             // Result slice to store preorder traversal
-	stack := []*helper.TreeNode{} // Stack to simulate recursion using iteration
+	result := []int{}      // Result slice to store preorder traversal
+	stack := []*TreeNode{} // Stack to simulate recursion using iteration
 
 	if root == nil {
 		return result
