@@ -2,6 +2,8 @@ package testing_test
 
 import (
 	"testing"
+
+	helper "../helper"
 	problem "../problem"
 )
 
@@ -33,19 +35,6 @@ func listToSlice(head *ListNode) []int {
 	}
 
 	return result
-}
-
-// Helper function to compare two slices
-func slicesEqual(a, b []int) bool {
-	if len(a) != len(b) {
-		return false
-	}
-	for i := range a {
-		if a[i] != b[i] {
-			return false
-		}
-	}
-	return true
 }
 
 func TestDeleteDuplicates(t *testing.T) {
@@ -123,7 +112,7 @@ func TestDeleteDuplicates(t *testing.T) {
 			resultSlice := listToSlice(result)
 
 			// Compare with expected
-			if !slicesEqual(resultSlice, tt.expected) {
+			if !helper.SlicesEqual(resultSlice, tt.expected) {
 				t.Errorf("DeleteDuplicates(%v) = %v, expected %v", tt.input, resultSlice, tt.expected)
 			}
 		})
@@ -151,7 +140,7 @@ func TestDeleteDuplicatesStructureIntegrity(t *testing.T) {
 		expected := []int{1, 2, 3, 4}
 		actual := listToSlice(result)
 
-		if !slicesEqual(actual, expected) {
+		if !helper.SlicesEqual(actual, expected) {
 			t.Errorf("Structure integrity test failed: got %v, expected %v", actual, expected)
 		}
 
