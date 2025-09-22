@@ -1,7 +1,7 @@
 // https://leetcode.com/problems/maximum-depth-of-binary-tree/
 package problem
 
-import "runtime/debug"
+// import "runtime/debug"
 
 /**
  * Definition for a binary tree node.
@@ -168,5 +168,5 @@ func MaxDepthIterativeDFSOptimized(root *TreeNode) int {
 }
 
 func init() {
-	debug.SetMemoryLimit(2) // Limit memory usage to 2MB for testing purposes
+	//debug.SetMemoryLimit(2 * 1024 * 1024) // Limit memory usage to 2MB for testing purposes
 }
