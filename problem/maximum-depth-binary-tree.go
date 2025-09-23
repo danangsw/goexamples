@@ -1,6 +1,8 @@
 // https://leetcode.com/problems/maximum-depth-of-binary-tree/
 package problem
 
+import helper "../helper"
+
 // import "runtime/debug"
 
 /**
@@ -40,15 +42,7 @@ func MaxDepthRecursiveOneLiner(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
-	return 1 + max(MaxDepthRecursiveOneLiner(root.Left), MaxDepthRecursiveOneLiner(root.Right))
-}
-
-// max returns the maximum of two integers (helper function for Go versions < 1.21)
-func max(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
+	return 1 + helper.Max(MaxDepthRecursiveOneLiner(root.Left), MaxDepthRecursiveOneLiner(root.Right))
 }
 
 // MaxDepthIterativeBFS finds the maximum depth using iterative BFS (level-order traversal).

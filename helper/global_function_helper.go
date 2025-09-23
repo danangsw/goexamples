@@ -52,3 +52,19 @@ func SlicesEqual(a, b []int) bool {
 
 	return true
 }
+
+// Max returns the maximum of two integers (helper function for Go versions < 1.21)
+func Max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+// Abs returns the absolute value of an integer
+func Abs(a int) int {
+	if a < 0 {
+		return -a
+	}
+	return a
+}
