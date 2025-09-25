@@ -76,3 +76,18 @@ func Min(a, b int) int {
 	}
 	return b
 }
+
+// Helper function to calculate maximum depth for property testing
+func GetMaxDepth(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+
+	left := GetMaxDepth(root.Left)
+	right := GetMaxDepth(root.Right)
+
+	if left > right {
+		return left + 1
+	}
+	return right + 1
+}

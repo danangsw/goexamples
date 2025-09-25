@@ -14,6 +14,7 @@ package problem
  * }
  */
 import helper "../helper"
+
 func MinDepth(root *TreeNode) int {
 	if root == nil {
 		return 0
@@ -26,4 +27,38 @@ func MinDepth(root *TreeNode) int {
 	}
 
 	return helper.Min(left, right) + 1
+}
+
+func MinDepthIterativeBFS(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+
+	queue := []*TreeNode{root}
+	depth := 0
+	for len(queue) > 0 {
+		depth++
+		level := len(queue)
+
+		// Process all nodes at the current level
+		for i := 0; i < level; i++ {
+			node := queue[0]
+			queue = queue[1:]
+
+			// Check if it's a leaf node - the minimum depth is found
+			if node.Left == nil && node.Right == nil {
+				return depth
+			}
+
+			// add children to the queue
+			if node.Left != nil {
+				queue = append(queue, node.Left)
+			}
+			if node.Right != nil {
+				queue = append(queue, node.Right)
+			}	
+		}
+	}
+
+	return depth
 }

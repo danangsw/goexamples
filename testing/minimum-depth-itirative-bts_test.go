@@ -7,7 +7,7 @@ import (
 	problem "../problem"
 )
 
-func TestMinDepth(t *testing.T) {
+func TestMinDepthIterativeBFS(t *testing.T) {
 	tests := []struct {
 		name     string
 		input    []*int
@@ -93,32 +93,32 @@ func TestMinDepth(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			root := helper.CreateTreeFromArray(tt.input)
-			result := problem.MinDepth(root)
+			result := problem.MinDepthIterativeBFS(root)
 
 			if result != tt.expected {
-				t.Errorf("MinDepth() = %d, expected %d", result, tt.expected)
+				t.Errorf("MinDepthIterativeBFS() = %d, expected %d", result, tt.expected)
 			}
 		})
 	}
 }
 
-func TestMinDepthEdgeCases(t *testing.T) {
+func TestMinDepthIterativeBFSEdgeCases(t *testing.T) {
 	t.Run("Nil root", func(t *testing.T) {
-		result := problem.MinDepth(nil)
+		result := problem.MinDepthIterativeBFS(nil)
 		expected := 0
 
 		if result != expected {
-			t.Errorf("MinDepth(nil) = %d, expected %d", result, expected)
+			t.Errorf("MinDepthIterativeBFS(nil) = %d, expected %d", result, expected)
 		}
 	})
 
 	t.Run("Single node with zero value", func(t *testing.T) {
 		root := &TreeNode{Val: 0}
-		result := problem.MinDepth(root)
+		result := problem.MinDepthIterativeBFS(root)
 		expected := 1
 
 		if result != expected {
-			t.Errorf("MinDepth with zero value = %d, expected %d", result, expected)
+			t.Errorf("MinDepthIterativeBFS with zero value = %d, expected %d", result, expected)
 		}
 	})
 
@@ -131,7 +131,7 @@ func TestMinDepthEdgeCases(t *testing.T) {
 			current = current.Left
 		}
 
-		result := problem.MinDepth(root)
+		result := problem.MinDepthIterativeBFS(root)
 		expected := 10
 
 		if result != expected {
@@ -148,7 +148,7 @@ func TestMinDepthEdgeCases(t *testing.T) {
 			current = current.Right
 		}
 
-		result := problem.MinDepth(root)
+		result := problem.MinDepthIterativeBFS(root)
 		expected := 10
 
 		if result != expected {
@@ -173,7 +173,7 @@ func TestMinDepthEdgeCases(t *testing.T) {
 		root.Left.Right.Left = &TreeNode{Val: 4}
 		root.Left.Right.Left.Right = &TreeNode{Val: 5}
 
-		result := problem.MinDepth(root)
+		result := problem.MinDepthIterativeBFS(root)
 		expected := 5
 
 		if result != expected {
@@ -190,10 +190,10 @@ func TestMinDepthEdgeCases(t *testing.T) {
 		//   4    ← leaf at depth 3
 		root := &TreeNode{Val: 1}
 		root.Left = &TreeNode{Val: 2}
-		root.Right = &TreeNode{Val: 3} // This is a leaf at depth 2
+		root.Right = &TreeNode{Val: 3}     // This is a leaf at depth 2
 		root.Left.Left = &TreeNode{Val: 4} // This is a leaf at depth 3
 
-		result := problem.MinDepth(root)
+		result := problem.MinDepthIterativeBFS(root)
 		expected := 2 // Should find the shallower leaf (node 3)
 
 		if result != expected {
@@ -215,11 +215,11 @@ func TestMinDepthEdgeCases(t *testing.T) {
 		root.Right = &TreeNode{Val: 3}
 		root.Left.Left = &TreeNode{Val: 4}
 		root.Left.Right = &TreeNode{Val: 5}
-		root.Right.Right = &TreeNode{Val: 6} // Leaf at depth 3
-		root.Left.Left.Left = &TreeNode{Val: 7} // Leaf at depth 4
+		root.Right.Right = &TreeNode{Val: 6}     // Leaf at depth 3
+		root.Left.Left.Left = &TreeNode{Val: 7}  // Leaf at depth 4
 		root.Left.Right.Left = &TreeNode{Val: 8} // Leaf at depth 4
 
-		result := problem.MinDepth(root)
+		result := problem.MinDepthIterativeBFS(root)
 		expected := 3 // Should find node 6 at depth 3
 
 		if result != expected {
@@ -228,14 +228,14 @@ func TestMinDepthEdgeCases(t *testing.T) {
 	})
 }
 
-func TestMinDepthConstraints(t *testing.T) {
+func TestMinDepthIterativeBFSConstraints(t *testing.T) {
 	t.Run("Maximum constraint values", func(t *testing.T) {
 		// Test with values at constraint boundaries (values don't affect depth calculation)
 		root := &TreeNode{Val: 100000}
 		root.Left = &TreeNode{Val: -100000}
 		root.Right = &TreeNode{Val: 0}
 
-		result := problem.MinDepth(root)
+		result := problem.MinDepthIterativeBFS(root)
 		expected := 2 // Both left and right are leaves
 
 		if result != expected {
@@ -254,7 +254,7 @@ func TestMinDepthConstraints(t *testing.T) {
 		}
 		root := helper.CreateTreeFromArray(input)
 
-		result := problem.MinDepth(root)
+		result := problem.MinDepthIterativeBFS(root)
 		expected := 4 // All leaves are at level 4
 
 		if result != expected {
@@ -263,15 +263,15 @@ func TestMinDepthConstraints(t *testing.T) {
 	})
 }
 
-func BenchmarkMinDepth(b *testing.B) {
+func BenchmarkMinDepthIterativeBFS(b *testing.B) {
 	benchmarks := []struct {
 		name string
 		size int
 	}{
-		{"MinDepth_Small_7_nodes", 7},
-		{"MinDepth_Medium_15_nodes", 15},
-		{"MinDepth_Large_31_nodes", 31},
-		{"MinDepth_XLarge_63_nodes", 63},
+		{"MinDepthIterativeBFS_Small_7_nodes", 7},
+		{"MinDepthIterativeBFS_Medium_15_nodes", 15},
+		{"MinDepthIterativeBFS_Large_31_nodes", 31},
+		{"MinDepthIterativeBFS_XLarge_63_nodes", 63},
 	}
 
 	for _, bm := range benchmarks {
@@ -286,14 +286,14 @@ func BenchmarkMinDepth(b *testing.B) {
 			b.ResetTimer()
 
 			for i := 0; i < b.N; i++ {
-				problem.MinDepth(root)
+				problem.MinDepthIterativeBFS(root)
 			}
 		})
 	}
 }
 
 /***
-func ExampleMinDepth() {
+func ExampleMinDepthIterativeBFS() {
 	// Create a binary tree:
 	//       3
 	//      / \
@@ -306,14 +306,14 @@ func ExampleMinDepth() {
 	root.Right.Left = &TreeNode{Val: 15}
 	root.Right.Right = &TreeNode{Val: 7}
 
-	depth := problem.MinDepth(root)
+	depth := problem.MinDepthIterativeBFS(root)
 	println("Minimum depth:", depth)
 	// Output: Minimum depth: 2
 }
 ***/
 
 // Test to verify minimum depth property
-func TestMinDepthProperties(t *testing.T) {
+func TestMinDepthIterativeBFSProperties(t *testing.T) {
 	t.Run("Minimum depth is always less than or equal to maximum depth", func(t *testing.T) {
 		testCases := []struct {
 			name string
@@ -325,12 +325,12 @@ func TestMinDepthProperties(t *testing.T) {
 					return &TreeNode{
 						Val: 1,
 						Left: &TreeNode{
-							Val: 2,
+							Val:   2,
 							Left:  &TreeNode{Val: 4},
 							Right: &TreeNode{Val: 5},
 						},
 						Right: &TreeNode{
-							Val: 3,
+							Val:   3,
 							Left:  &TreeNode{Val: 6},
 							Right: &TreeNode{Val: 7},
 						},
@@ -345,7 +345,7 @@ func TestMinDepthProperties(t *testing.T) {
 						Left: &TreeNode{
 							Val: 2,
 							Left: &TreeNode{
-								Val: 3,
+								Val:  3,
 								Left: &TreeNode{Val: 4},
 							},
 						},
@@ -358,7 +358,7 @@ func TestMinDepthProperties(t *testing.T) {
 		for _, tc := range testCases {
 			t.Run(tc.name, func(t *testing.T) {
 				tree := tc.tree()
-				minDepth := problem.MinDepth(tree)
+				minDepth := problem.MinDepthIterativeBFS(tree)
 				maxDepth := helper.GetMaxDepth(tree)
 
 				if minDepth > maxDepth {
@@ -375,7 +375,7 @@ func TestMinDepthProperties(t *testing.T) {
 
 	t.Run("Minimum depth equals 1 for single node", func(t *testing.T) {
 		root := &TreeNode{Val: 42}
-		result := problem.MinDepth(root)
+		result := problem.MinDepthIterativeBFS(root)
 
 		if result != 1 {
 			t.Errorf("Single node should have min depth 1, got %d", result)
@@ -397,7 +397,7 @@ func TestMinDepthProperties(t *testing.T) {
 		root.Right.Left = &TreeNode{Val: 6}
 		root.Right.Right = &TreeNode{Val: 7}
 
-		minDepth := problem.MinDepth(root)
+		minDepth := problem.MinDepthIterativeBFS(root)
 		maxDepth := helper.GetMaxDepth(root)
 
 		if minDepth != maxDepth {
