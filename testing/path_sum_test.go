@@ -7,13 +7,48 @@ import (
 	problem "../problem"
 )
 
+type testCase struct {
+	name      string
+	root      *helper.TreeNode
+	targetSum int
+	expected  bool
+}
+
 func TestHasPathSum(t *testing.T) {
-	tests := []struct {
-		name      string
-		root      *helper.TreeNode
-		targetSum int
-		expected  bool
-	}{
+	tests := testCaseSuites()
+	runTests(t, problem.HasPathSum, tests)
+}
+
+func TestHasPathSumIterative(t *testing.T) {
+	tests := testCaseSuites()
+	runTests(t, problem.HasPathSumIterative, tests)
+}
+
+func runTests(t *testing.T, fn func(*helper.TreeNode, int) bool, tests []testCase) {
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := fn(tt.root, tt.targetSum)
+			if result != tt.expected {
+				t.Errorf("got %v, want %v", result, tt.expected)
+			}
+		})
+	}
+}
+
+func testCaseSuites() []testCase {
+	return []testCase{
+		{
+			name:      "Single node equals target",
+			root:      &helper.TreeNode{Val: 5},
+			targetSum: 5,
+			expected:  true,
+		},
+		{
+			name:      "Single node does not equal target",
+			root:      &helper.TreeNode{Val: 5},
+			targetSum: 10,
+			expected:  false,
+		},
 		{
 			name:      "Single node equals target",
 			root:      &helper.TreeNode{Val: 5},
@@ -68,14 +103,5 @@ func TestHasPathSum(t *testing.T) {
 			targetSum: 4,
 			expected:  true,
 		},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			result := problem.HasPathSum(tt.root, tt.targetSum)
-			if result != tt.expected {
-				t.Errorf("got %v, want %v", result, tt.expected)
-			}
-		})
 	}
 }
