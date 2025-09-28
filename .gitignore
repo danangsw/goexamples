@@ -10,3 +10,7 @@
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+
+# Github folder for storing files and configurations related to GitHub-specific features
+.github/
+
