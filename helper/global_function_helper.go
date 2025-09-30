@@ -91,3 +91,40 @@ func GetMaxDepth(root *TreeNode) int {
 	}
 	return right + 1
 }
+
+// RECOMMENDED (DOCUMENTED):
+// BuildLinkedList creates a linked list from a slice of integers.
+// The list is constructed in the same order as the input slice.
+// Returns nil if the input slice is empty.
+// Time Complexity: O(n), Space Complexity: O(n)
+func BuildLinkedList(values []int) *ListNode {
+	// CURRENT: Only handles empty slice
+	if len(values) == 0 {
+		return nil
+	}
+
+	// COULD ADD: Handle nil slice (though unlikely in practice)
+	if values == nil {
+		return nil
+	}
+
+	head := &ListNode{Val: values[0]}
+	current := head
+
+	for i := 1; i < len(values); i++ {
+		current.Next = &ListNode{Val: values[i]}
+		current = current.Next
+	}
+
+	return head
+}
+
+func ListToSlice(head *ListNode) []int {
+	var result []int
+	current := head
+	for current != nil {
+		result = append(result, current.Val)
+		current = current.Next
+	}
+	return result
+}
