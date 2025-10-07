@@ -2,6 +2,7 @@ package testing_test
 
 import (
 	"testing"
+
 	problem "../problem"
 )
 
@@ -9,7 +10,7 @@ import (
 
 func TestConvertToTitle(t *testing.T) {
 	tests := []struct {
-		input int
+		input    int
 		expected string
 	}{
 		{1, "A"},
@@ -18,7 +19,7 @@ func TestConvertToTitle(t *testing.T) {
 		{702, "ZZ"},
 		{701, "ZY"},
 		{1402, "BAX"},
-		{2804, "DCV"}
+		{2804, "DCV"},
 	}
 
 	for _, test := range tests {
