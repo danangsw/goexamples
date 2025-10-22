@@ -45,3 +45,21 @@ func CountBitsDP(n int) []int {
 	}
 	return result
 }
+
+// Modulo-based approach
+func CountBitsModulo(n int) []int {
+	result := make([]int, n+1)
+	for i := 1; i <= n; i++ {
+		// i / 2 shifts the bits to the right (removes least significant bit)
+		// i % 2 gives 1 if the least significant bit is 1, else 0
+		// Example trace (modulo-based for n=5):
+		// i=1: ans[1]=ans[0]+1=1
+		// i=2: ans[2]=ans[1]+0=1
+		// i=3: ans[3]=ans[1]+1=2
+		// i=4: ans[4]=ans[2]+0=1
+		// i=5: ans[5]=ans[2]+1=2
+		// Result: [0,1,1,2,1,2]
+		result[i] = result[i/2] + (i % 2)
+	}
+	return result
+}
