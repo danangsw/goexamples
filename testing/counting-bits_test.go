@@ -1,6 +1,7 @@
 package testing_test
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 
@@ -60,11 +61,35 @@ func TestCountBits(t *testing.T) {
 		},
 	}
 
+	// Run tests: Shifted based approach
+	fmt.Println("Testing CountBits with Shifted Based Approach:")
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			result := problem.CountBits(tt.n)
 			if !reflect.DeepEqual(result, tt.expected) {
 				t.Errorf("CountBits(%d) = %v, expected %v", tt.n, result, tt.expected)
+			}
+		})
+	}
+
+	// Run tests: Dynamic Programming approach
+	fmt.Println("Testing CountBits with Dynamic Programming Approach:")
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := problem.CountBitsDP(tt.n)
+			if !reflect.DeepEqual(result, tt.expected) {
+				t.Errorf("CountBitsDP(%d) = %v, expected %v", tt.n, result, tt.expected)
+			}
+		})
+	}
+
+	// Run tests: Modulo-based approach
+	fmt.Println("Testing CountBits with Modulo-Based Approach:")
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := problem.CountBitsModulo(tt.n)
+			if !reflect.DeepEqual(result, tt.expected) {
+				t.Errorf("CountBitsModulo(%d) = %v, expected %v", tt.n, result, tt.expected)
 			}
 		})
 	}
