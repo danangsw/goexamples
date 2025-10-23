@@ -46,3 +46,15 @@ func ReverseBitsIterative(n int) int {
 	}
 	return rev
 }
+
+// ReverseBitsDivideAndConquer reverses the bits of a given 32 bits unsigned integer using divide and conquer method.
+// Time Complexity: O(1) - constant time due to fixed number of operations
+// Space Complexity: O(1) - constant space
+func ReverseBitsDivideAndConquer(n int) int {
+	n = (n>>16)&0x0000FFFF | (n&0x0000FFFF)<<16
+	n = (n>>8)&0x00FF00FF | (n&0x00FF00FF)<<8
+	n = (n>>4)&0x0F0F0F0F | (n&0x0F0F0F0F)<<4
+	n = (n>>2)&0x33333333 | (n&0x33333333)<<2
+	n = (n>>1)&0x55555555 | (n&0x55555555)<<1
+	return n
+}
