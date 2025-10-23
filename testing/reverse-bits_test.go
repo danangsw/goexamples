@@ -64,4 +64,14 @@ func TestReverseBits(t *testing.T) {
 			}
 		})
 	}
+
+	fmt.Println("Running tests for ReverseBits: iterative bit-reverse (32 shifts)...")
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := problem.ReverseBitsIterative(tt.input)
+			if result != tt.expected {
+				t.Errorf("expected %d, got %d", tt.expected, result)
+			}
+		})
+	}
 }
