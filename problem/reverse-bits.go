@@ -34,3 +34,15 @@ func reverse8Bits(b int) int {
 	}
 	return rev
 }
+
+// ReverseBitsIterative reverses the bits of a given 32 bits unsigned integer using iterative method.
+// Time Complexity: O(1) - constant time due to fixed number of operations
+// Space Complexity: O(1) - constant space
+func ReverseBitsIterative(n int) int {
+	var rev int = 0
+	for i := 0; i < 32; i++ {
+		rev = (rev << 1) | (n & 1)
+		n >>= 1
+	}
+	return rev
+}
