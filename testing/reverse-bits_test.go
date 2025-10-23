@@ -74,4 +74,14 @@ func TestReverseBits(t *testing.T) {
 			}
 		})
 	}
+
+	fmt.Println("Running tests for ReverseBits: Divide-and-conquer bit-swapping (faster, few operations)...")
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := problem.ReverseBitsDivideAndConquer(tt.input)
+			if result != tt.expected {
+				t.Errorf("expected %d, got %d", tt.expected, result)
+			}
+		})
+	}
 }
