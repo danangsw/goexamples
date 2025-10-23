@@ -8,8 +8,8 @@ var table [256]int
 // using table[0..255] to store reversed bits of 0..255
 // where table[i] = reverseBits(i)
 func init() {
-	for i := range 256 {
-		table[i] = reverse8Bits(int(i))
+	for i := 0; i < 256; i++ {
+		table[i] = reverse8Bits(i)
 	}
 }
 
@@ -28,7 +28,7 @@ func ReverseBits(n int) int {
 // reverse8Bits reverses the bits of an 8-bit integer.
 func reverse8Bits(b int) int {
 	var rev int = 0
-	for range 8 {
+	for i := 0; i < 8; i++ {
 		rev = (rev << 1) | (b & 1)
 		b >>= 1
 	}
