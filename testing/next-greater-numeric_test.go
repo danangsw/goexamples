@@ -1,6 +1,7 @@
 package testing_test
 
 import (
+	"fmt"
 	"testing"
 
 	"../problem"
@@ -88,11 +89,22 @@ func TestNextGreaterNumeric(t *testing.T) {
 			expected: 3133,
 		},
 	}
+	fmt.Println("Running TestNextGreaterNumeric: Brute force approach")
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			result := problem.NextGreaterNumber(tt.input)
 			if result != tt.expected {
-				t.Errorf("NextGreaterNumber(%d) = %d; expected %d", tt.input, result, tt.expected)
+				t.Errorf("Brute force: NextGreaterNumber(%d) = %d; expected %d", tt.input, result, tt.expected)
+			}
+		})
+	}
+
+	fmt.Println("Running TestNextGreaterNumeric: Precomputed approach")
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := problem.NextGreaterNumberPrecomputed(tt.input)
+			if result != tt.expected {
+				t.Errorf("Precomputed: NextGreaterNumber(%d) = %d; expected %d", tt.input, result, tt.expected)
 			}
 		})
 	}
