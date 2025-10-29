@@ -1,5 +1,35 @@
 package helper
 
+// Helper function to create a linked list from slice
+func CreateList(values []int) *ListNode {
+	if len(values) == 0 {
+		return nil
+	}
+
+	head := &ListNode{Val: values[0]}
+	current := head
+
+	for i := 1; i < len(values); i++ {
+		current.Next = &ListNode{Val: values[i]}
+		current = current.Next
+	}
+
+	return head
+}
+
+// Helper function to convert linked list to slice for easy comparison
+func ListToSlice(head *ListNode) []int {
+	result := []int{}
+	current := head
+
+	for current != nil {
+		result = append(result, current.Val)
+		current = current.Next
+	}
+
+	return result
+}
+
 // Helper function to create a binary tree from array representation
 // nil values in the array represent null nodes
 func CreateTreeFromArray(values []*int) *TreeNode {
@@ -117,14 +147,4 @@ func BuildLinkedList(values []int) *ListNode {
 	}
 
 	return head
-}
-
-func ListToSlice(head *ListNode) []int {
-	var result []int
-	current := head
-	for current != nil {
-		result = append(result, current.Val)
-		current = current.Next
-	}
-	return result
 }

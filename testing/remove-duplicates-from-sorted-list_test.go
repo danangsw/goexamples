@@ -7,36 +7,6 @@ import (
 	problem "../problem"
 )
 
-// Helper function to create a linked list from slice
-func createList(values []int) *ListNode {
-	if len(values) == 0 {
-		return nil
-	}
-
-	head := &ListNode{Val: values[0]}
-	current := head
-
-	for i := 1; i < len(values); i++ {
-		current.Next = &ListNode{Val: values[i]}
-		current = current.Next
-	}
-
-	return head
-}
-
-// Helper function to convert linked list to slice for easy comparison
-func listToSlice(head *ListNode) []int {
-	var result []int
-	current := head
-
-	for current != nil {
-		result = append(result, current.Val)
-		current = current.Next
-	}
-
-	return result
-}
-
 func TestDeleteDuplicates(t *testing.T) {
 	tests := []struct {
 		name     string
@@ -103,13 +73,13 @@ func TestDeleteDuplicates(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			// Create input list
-			inputList := createList(tt.input)
+			inputList := helper.CreateList(tt.input)
 
 			// Call the function
 			result := problem.DeleteDuplicates(inputList)
 
 			// Convert result to slice
-			resultSlice := listToSlice(result)
+			resultSlice := helper.ListToSlice(result)
 
 			// Compare with expected
 			if !helper.SlicesEqual(resultSlice, tt.expected) {
@@ -132,13 +102,13 @@ func TestDeleteDuplicatesStructureIntegrity(t *testing.T) {
 	// Test that the function properly maintains list structure
 	t.Run("List structure integrity", func(t *testing.T) {
 		input := []int{1, 1, 2, 3, 3, 4}
-		head := createList(input)
+		head := helper.CreateList(input)
 
 		result := problem.DeleteDuplicates(head)
 
 		// Verify the result is properly linked
 		expected := []int{1, 2, 3, 4}
-		actual := listToSlice(result)
+		actual := helper.ListToSlice(result)
 
 		if !helper.SlicesEqual(actual, expected) {
 			t.Errorf("Structure integrity test failed: got %v, expected %v", actual, expected)
@@ -181,7 +151,7 @@ func BenchmarkDeleteDuplicates(b *testing.B) {
 			b.ResetTimer()
 
 			for i := 0; i < b.N; i++ {
-				list := createList(input)
+				list := helper.CreateList(input)
 				problem.DeleteDuplicates(list)
 			}
 		})
